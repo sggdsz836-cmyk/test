@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Test Site</title>
+  <style>
+    :root { --bg:#f5f7fb; --ink:#1b2333; --muted:#5d6a82; --accent:#2557d6; --card:#fff; --line:#dde3ef; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#10141d; --ink:#e8ecf5; --muted:#9aa7c0; --accent:#7aa2ff; --card:#181e2b; --line:#28314a; }
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { max-width: 640px; margin: 0 auto; padding: 48px 20px; }
+    h1 { font-size: 2rem; margin: 0 0 8px; }
+    p.lead { color: var(--muted); margin: 0 0 32px; }
+    form, .msg { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+    label { display:block; font-weight:600; margin: 0 0 12px; }
+    input, textarea { width:100%; margin-top:4px; padding:10px; font:inherit; color:inherit; background:var(--bg); border:1px solid var(--line); border-radius:6px; }
+    input:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    button { padding:10px 18px; font:inherit; font-weight:600; color:#fff; background:var(--accent); border:0; border-radius:6px; cursor:pointer; }
+    h2 { font-size: 1.1rem; margin: 32px 0 12px; }
+    .msg { margin-bottom: 10px; }
+    .msg strong { display:block; }
+    .empty { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>My Test Site</h1>
+    <p class="lead">A small Flask app running on Render. Leave a message below.</p>
+
+    <form method="post">
+      <label>Name <input name="name" maxlength="40" required></label>
+      <label>Message <textarea name="message" rows="3" maxlength="200" required></textarea></label>
+      <button type="submit">Post message</button>
+    </form>
+
+    <h2>Messages</h2>
+    {% for m in messages %}
+      <div class="msg"><strong>{{ m.name }}</strong>{{ m.text }}</div>
+    {% else %}
+      <p class="empty">No messages yet. Post the first one.</p>
+    {% endfor %}
+  </main>
+</body>
+</html>
